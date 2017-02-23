@@ -185,6 +185,25 @@ def hillclimb(n,k,p,d):
         #if likelipCurr > likelipUp and likelipCurr > likelipDown:
                 break
             return(pCurr, likelipCurr)
-
+import random
+def randks():
+    p=0.3
+    n=5
+    d= 0.1
+    PCurr=p
+    diff=d
+    precision=0.001
+    listak=[]
+    MLs=[]
+    LR=[]
+    for i in range (8)
+        listak.append(random.randrange(0,n=+1,1))
+        k==listak
+    print (listak)
+    for k in listak: 
+        print(k)
+        ML = hillclimb(n,p,k,d)
+        MLs.append(ML)
+    print(len(MLs))
 
 

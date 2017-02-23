@@ -1,0 +1,187 @@
+"""
+Code is incomplete, and annotations are weak, I am still working to storw the values for do the graphs an answer the questions
+Code works at the moment, but still having a difficult to store the values on the list. 
+The MCMC function works, the code is commented in the part I am actually working for the store the list to do the graphs
+Code is based in Dr. Jeremy Brown back bone, and MCMC was refined and the backbone of that portion was discussed with Pam Hart and AJ Turner
+This code need cleaning and improvement, working open
+
+"""
+# Importing the binomial and uniform classes from the stats module of the scipy library
+from scipy.stats import binom, uniform
+
+# Importing pseudo-random number generators for uniform and Gaussian distributions
+from random import random, gauss
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+
+
+# Defining the data
+flips = ["H","T","T","T","H"]
+flips = flips*1000  # Uncomment (and modify) this line to create a more informative dataset
+n = len(flips) # Number (n) of binomial trials
+#print (n)
+k = sum([1 for fl in flips if fl == "H"])  # Counting heads as successes (k)
+#print(k)
+
+def draw (mean, SD, n):
+    mu = mean
+    sigma = SD
+    value = n
+    s = np.random.normal(mu, sigma, value)  # generating rando norm. dist.
+    #count, bins, ignored = plt.hist(s, 30, normed=True)
+    #plt.plot(bins, 1/(sigma * np.sqrt(2 * np.pi)) * np.exp( - (bins - mu)**2 / (2 \
+    #* sigma**2) ),linewidth=2, color='r')
+    #plt.show()
+
+# Defining general function to calculate likelihoods if p<0 or p>1
+def like(successes,trials,prob,testingPrior=False):
+    if testingPrior:  # If True, this will always return 1. This can be useful if one wants
+        return 1      # to test the machinery by estimating a known distribution (the prior).
+    if prob < 0:
+        return 0
+    elif prob > 1:
+        return 0
+    else:
+        return binom.pmf(successes,trials,prob)
+    
+# Defining function to calculate prior density - uniform [0,1]
+def prior(prob):
+    return uniform.pdf(prob)
+
+# Defining function to calculate the unnormalized posterior density
+def posterior(successes,trials,prob):
+    prob1=[]
+    prob1=prob
+    posterior = prior(prob) * like(successes,trials,prob)
+    return posterior
+    
+# To get a sense for how well importance sampling is working, we're going to run our
+# experiment several times. This list will hold the estimates of the means for all 
+# replicates.
+def randraw (nreps, nvals, uniScale):
+    estimates = []
+# The number of replicates we will run.
+    numReps = nreps
+    numValues = nvals
+# This value establishes the upper end of the uniform distribution from which we will sample
+# parameter values. Since only values between 0 and 1 can have likelihoods > 0, the more we
+# extend this value above 1, the greater the disparity between our sampling distribution and
+# distribution of interest. What happens as this gets bigger?
+    uniScale = uniScale 
+# Initializing our ad hoc progress bar
+    #print("Progress (each . = 100 replicates): ",end="")
+# Iterating across our replicates 0,...,numReps-1
+    for rep in range(numReps):
+        if rep % 10 == 0:
+            print(".",end="")
+    # Draw values from uniform prior using the uniform class we imported from scipy
+    #numValues = nvals
+        p_vals = uniform.rvs(size=numValues,loc=0,scale=uniScale)
+    # Calculate initial weights (not necessarily normalized)
+        weights = [(posterior(k,n,param)/uniform.pdf(param,loc=0,scale=uniScale)) for param in p_vals]
+        return p_vals
+import random        
+def MCMC(successes, trials, prob,iterations):
+    """
+    This code perfoms MCMC iteration, over a uniform distribution
+    code in developed
+    """
+    n = iterations+1
+    for i in range(n):
+        pCurr = prob
+        #diff = d
+        nreps = 2
+        nvals= 1
+        uniScale = 1
+        PostN = []
+        PostC = []
+        RL = []
+        rands = []
+        rand=()
+    #for i in range(n):
+        pNew = randraw(nreps,nvals,uniScale)
+        #print (pNew)
+        #print (pCurr)
+        postpNew = posterior(successes, trials,pNew)
+        #PostN.appends(postpNew)
+            
+        postpCurr = posterior(successes, trials,pCurr)
+        #PostC.appends(postpCurr)
+        r = postpNew/postpCurr
+        #for i in r 
+        #RL.append(r)
+            
+        #print(r)
+    #print(pNew)
+    #for 
+        if r > 1: 
+            pCurr = pNew
+        elif r < 1:
+            rand = random.uniform(0, 1)
+        if rand <= r:
+            pCurr=pNew
+        elif rand > r: 
+            pCurr = pCurr
+        #elif pCurr != pNew:
+            #return ("No identical")
+        else:
+            #return ("Finally work")
+            print (pCurr, pNew) 
+
+"""
+random.uniform(0, 1)
+import random
+rands = []
+for rand in rands:
+    este = random.sample(range(0, 1), 1)
+    rands.append(este)
+    print(este)
+random.sample(range(0, 1)    
+random.sample(range(0, 1, 7))
+ random.sample(range(0, 2), 1)
+"""
+    
+    
+"""    
+     # Normalize weights so average is 1
+    """NOTE: This normalization isn't strictly necessary if both functions used to calculate 
+           the initial weights are proper probability density functions. But even then, it 
+           helps with rounding error."""
+weights = [w/np.mean(weights) for w in weights]
+    # Calculating weighted average
+count = 0
+estMean = 0
+while (count < (len(p_vals))):
+    estMean += p_vals[count]*weights[count]  # Multiplying each value by its weight
+    count += 1
+estMean /= numValues
+estimates.append(estMean)
+
+# Printing out some useful summary information
+print()
+print("The last estimated mean (replicate %d): %f." % (numReps,estimates[numReps-1]))
+print("The mean of the estimated means across all %d replicates: %f." % (numReps,np.mean(estimates)))
+print("The standard deviation of the estimated means is: %f."% (np.std(estimates)))
+
+
+#defining data for normal distribution
+def draw (mean, SD, n):
+    mu = mean
+    sigma = SD
+    value = n
+    s = np.random.normal(mu, sigma, value)  # generating rando norm. dist.
+    count, bins, ignored = plt.hist(s, 30, normed=True)
+    plt.plot(bins, 1/(sigma * np.sqrt(2 * np.pi)) * np.exp( - (bins - mu)**2 / (2 \
+    * sigma**2) ),linewidth=2, color='r')
+    plt.show()
+    
+data = p_vals
+num_bins = 20 # <- number of bins for the histogram
+plt.hist(data, num_bins, normed=True)
+plt.show()
+"""
+
+
