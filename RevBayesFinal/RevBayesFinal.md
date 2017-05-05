@@ -4,14 +4,14 @@ Final Assingment Using RevBayes
 
 Methods: 
 ========
-The phylogenetics relationships of the genus Pseudoxiphophorus (Poecilinae:Poeciliidae) was infer using a bayesian approach 
-using the software RevBayes (Hohna......) using a data set of 1 mitochondrial gene (cyt b) and 5 nuclear loci: 2 exons (SREB2 and SH3PX3)
-and 3 introns (UNG, POLB and FEN1), under concatenation of multiple genes. assuming the same substitution model (HKY) for all 
+The phylogenetics relationships of a genus Pseudoxiphophorus (Poecilinae:Poeciliidae) was infer using a bayesian approach 
+using the software RevBayes using a data set of 1 mitochondrial gene and 5 nuclear loci: 2 exons
+and 3 introns, under concatenation of multiple genes. assuming the same substitution model (HKY) for all 
 the loci under study, even if this assumption is not biologically realistic, we can compare the results of this approach analyzing this dataset
 under other models and in a partition scheme later on. 
 
 We visually inspects two different runs, one that only ran for 100,000 iterations (generations) and one that run for 2,000,000 iterations (generations) 
-the performance of the runs, were visually assessed using the software tracer (Rambaud.....) and the topology are recovered with a maximum a posteriori tree (MAP tree)
+the performance of the runs, were visually assessed using the software tracer and the topology are recovered with a maximum a posteriori tree (MAP tree)
 representation of the distribution of trees generated during the MCMCM run. 
 
 A script of the analysis is provided in 
@@ -23,18 +23,21 @@ only realize one single run. this mistake did not allow me to check for converge
  
 Results: 
 =========
-For the MCMC run in RevBayes with 100,000 iterations(generations), effective sampling size for posterior and prior did not mix properly (see Ta supplementary figure 1) 
-for the longer run 2,000,000 iterations(generations) all parameters mix well and effective sample size is higher than the cutoff of 200. convergence of results  in independent runs could not be evaluated do the 
+For the MCMC run in RevBayes with 100,000 iterations(generations), effective sampling size for posterior and prior did not mix properly (see figure 1, table 1) 
+for the longer run 2,000,000 iterations(generations) all parameters mix well and effective sample size is higher than the cutoff of 200 (see figure 2 and table 1). convergence of results  in independent runs could not be evaluated do the 
 error in the RevBayes script. but posterior independent runs will be performed to asses convergence not only of the MCMC run but as well convergence of parameters space sampled and effective sampling size 
 of independent runs. 
 
-**Table 1 Effective sampling size of two independent runs of different length of iterations
+**Table 1 Effective sampling size of two independent runs of different length of iterations**
 ![example image](ESS.png)
 
-MCMC run 											Efective Sampling Size				
-No. of iterations (generations)				Posterior 	Likelihood	Prior	alpha (exchangeability) 	Kappa (substitution model)
-100,000											75			260		38				>200							>200
-2,000,000									  >1000		   >1000   >1000			>200							>200
+
+**Figure 1 Trace file of MCMC run of 100,000 iterations**
+![example image](Trace1.png)
+
+**Figure 2 Trace file of MCMC run of 2,000,000 iterations**
+![example image](Trace2.png)
+
 
 Tree topology was compared among the short (100,000 iterations) and the long (2,000,000 iterations) 
 
