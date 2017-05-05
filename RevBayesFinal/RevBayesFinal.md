@@ -32,12 +32,23 @@ of independent runs.
 ![example image](ESS.png)
 
 
-**Figure 1 Trace file of MCMC run of 100,000 iterations**
+
 ![example image](Trace1.png)
+**Figure 1 Trace file of MCMC run of 100,000 iterations**
 
-**Figure 2 Trace file of MCMC run of 2,000,000 iterations**
+
 ![example image](Trace2.png)
+**Figure 2 Trace file of MCMC run of 2,000,000 iterations**
 
 
-Tree topology was compared among the short (100,000 iterations) and the long (2,000,000 iterations) 
+Tree topologies recovered among the short (100,000 iterations) and the long (2,000,000 iterations) runs were congruent, and as previous studies cryptic diversity was identify in the most widespread species of the genus
+(colored in red), some of the relationships recovered among the lineages in the genus are resolved with low support. To tackle this problem a more robust analysis of this data set including a more rich model that allow to different 
+substitution models for each loci, might improve the exploration of parameter space and will allow to have a better understanding of the relationships of the lineages of this genus, as well a different approach like the multispecies coalescent
+model, will allow to explore gene tree discordance that can be proposing different set of relationships that can be in conflict. 
+
+
+![example image](Final.png)
+**Figure 3 maximum a posteriori (map) tree of the phylogenetic relationships of Pseudoxiphophorus. red clades depict paraphyly of the most wide spread species of the genus, branches in color blue represent bayesian posterior probabilities
+< 0.90**
+ 
 
